@@ -56,10 +56,10 @@ public class IAccountServiceImpl implements IAccountService {
 
 	@Override
 	public Account getAccount(long id) {
-		if (accountrepository.existsById(id)) {
-			return accountrepository.findById(id).get();
-		} else {
+		if (!accountrepository.existsById(id)) {
 			throw new AccountNotFoundException("Account not found");
+		} else {
+			return accountrepository.findById(id).get();
 		}
 	}
 
