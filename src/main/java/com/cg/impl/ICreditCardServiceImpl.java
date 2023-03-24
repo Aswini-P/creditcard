@@ -15,62 +15,49 @@ import com.cg.service.ICreditCardService;
 public class ICreditCardServiceImpl implements ICreditCardService {
 	@Autowired
 	ICreditCardRepository creditcardrepository;
-
 	@Override
 	public CreditCard addCreditCard(CreditCard creditcard) {
 		creditcardrepository.saveAndFlush(creditcard);
 		return creditcard;
-	}
-
+		}
 	@Override
 	public CreditCard removeCreditCard(long cardId) {
-		if(creditcardrepository.existsById(cardId))
-		{
-		CreditCard c = creditcardrepository.findById(cardId).get();
+		
+		if(creditcardrepository.existsById(cardId)){CreditCard c = creditcardrepository.findById(cardId).get();
 		creditcardrepository.deleteById(cardId);
 		return c;
 		}
-		else
-		{
+		else{
 			throw new CreditCardNotFoundException("No Credit Card with given Id");
+			}
 		}
-	}
-
-
 	@Override
 	public CreditCard getCreditCard(long cardId) {
-		if(creditcardrepository.existsById(cardId))
-		{
-		return creditcardrepository.findById(cardId).get();
-		}
-		else
-		{
+		if(creditcardrepository.existsById(cardId)){
+			return creditcardrepository.findById(cardId).get();
+			}
+		else{
 			throw new CreditCardNotFoundException("No Credit Card with given Id");
+			}
 		}
-	}
-
 	@Override
 	public List<CreditCard> getAllCreditCard() {
 		return creditcardrepository.findAll();
-	}
-
+		}
 	@Override
 	public CreditCard updateCreditCard(long cardId, CreditCard creditcard) {
-		if(creditcardrepository.existsById(cardId))
-		{
-		CreditCard c = creditcardrepository.findById(cardId).get();
-		c.setId(creditcard.getId());
-		c.setCardname(creditcard.getCardname());
-		c.setCardtype(creditcard.getCardtype());
-		c.setCardnumber(creditcard.getCardnumber());
-		c.setExpirydate(creditcard.getExpirydate());
-		c.setBankname(creditcard.getBankname());
-		return c;
-		}
-		else
-		{
-			throw new CreditCardNotFoundException("No Credit Card with given Id");	
+		if(creditcardrepository.existsById(cardId)){
+			CreditCard c = creditcardrepository.findById(cardId).get();
+			c.setId(creditcard.getId());
+			c.setCardName(creditcard.getCardName());
+			c.setCardType(creditcard.getCardType());
+			c.setCardNumber(creditcard.getCardNumber());
+			c.setExpirtyDate(creditcard.getExpirtyDate());
+			c.setBankName(creditcard.getBankName());
+			return c;
+			}
+		else{
+			throw new CreditCardNotFoundException("No Credit Card with given Id");
+			}
 		}
 	}
-
-}

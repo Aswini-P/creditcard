@@ -30,6 +30,7 @@ public class Statement {
 	private LocalDate dueDate;
 	
     @ManyToOne(cascade=CascadeType.ALL)
+    @JsonProperty(access=JsonProperty.Access.WRITE_ONLY)
 	public Customer customer;
     @OneToMany(cascade=CascadeType.ALL,mappedBy="statement")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)

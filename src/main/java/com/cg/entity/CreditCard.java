@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Data;
@@ -22,20 +23,18 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CreditCard{
 	@Id
-	@GeneratedValue(strategy =GenerationType.AUTO)
-	public long id;
-	@NotBlank(message="CardName can't be blank")
-	public String cardname;
-	public String cardtype;
-	@NotBlank(message="CardNumber can't be Null")
-	public String cardnumber;
-	public LocalDate expirydate;
-	public String bankname;
-	@ManyToOne
-	@JsonProperty(access=JsonProperty.Access.WRITE_ONLY)
-	private Customer customer;
-	@OneToMany(cascade=CascadeType.ALL,mappedBy="creditCard")
+	@GeneratedValue
+	private long id;
+	@NotBlank(message="No card name provided")
+	private String cardName;
+	private String cardType;
+	@NotBlank(message="No card number name provided")
+	private String cardNumber;
+	@JsonFormat(pattern="yyyy-MM-dd")
+	private LocalDate expirtyDate;
+	private String bankName;
+	@ManyToOne@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	private Customer customer;@OneToMany(cascade=CascadeType.ALL,mappedBy="creditCard")
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private List<Statement> statementList;
-
 }

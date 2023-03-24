@@ -4,6 +4,9 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,34 +20,24 @@ import com.cg.entity.Account;
 import com.cg.service.IAccountService;
 
 @RestController
-@RequestMapping("/accountapi")
-
 public class AccountController {
 	@Autowired
-	IAccountService accountservice;
-	
-	@PostMapping("/addaccount")
-	public Account addAccount(@Valid @RequestBody Account account) 
-	{
-		return accountservice.addAccount(account);
-	}
-	@GetMapping("/removeaccount/{id}")
-	public Account removeAccount(@PathVariable("id") long id) {
-		return accountservice.removeAccount(id);
-    }
-	
-	@GetMapping("/getaccount/{id}")
-	public Account getAccount(@PathVariable("accountId") long id) {
-		return accountservice.getAccount(id);
-	}
-	
-	@GetMapping("/getallaccounts")
-	public List<Account> getAllAccounts(){
-		return accountservice.getAllAccounts();
-	}
-	@PutMapping("/updateaccount/{id}")
-	public Account updateAccount(@PathVariable("id")int id,@RequestBody Account account){
-		return accountservice.updateAccount(id,account);
+	private IAccountService accountServ;
+	@PostMapping("/accounts")
+	public ResponseEntity<Account> addAccount(@Valid @RequestBody Account a) {
+		return new ResponseEntity<>(accountServ.addAccount(a), HttpStatus.CREATED);
 		}
-
+	@DeleteMapping("/accounts/{id}")
+	public ResponseEntity<Account> removeAccount(@PathVariable("id")long id){
+		return new ResponseEntity<>(accountServ.removeAccount(id), HttpStatus.ACCEPTED);
+		}@GetMapping("/accounts/{id}")
+		public ResponseEntity<Account> getAccountById(@PathVariable("id")long id){
+			return new ResponseEntity<>(accountServ.getAccount(id), HttpStatus.FOUND);
+			}@GetMapping("/accounts")
+			public ResponseEntity<List<Account>>getAccounts(){
+				return new ResponseEntity<>(accountServ.getAllAccounts(), HttpStatus.FOUND);
+				}@PutMapping("/accounts/{id}")
+				public ResponseEntity<Account>updateAccountById(@PathVariable long id,@Valid @RequestBody Account a){
+					return new ResponseEntity<>(accountServ.updateAccount(id, a), HttpStatus.ACCEPTED);
+					}
 }
