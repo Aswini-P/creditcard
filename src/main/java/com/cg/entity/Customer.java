@@ -12,37 +12,45 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 @Entity
 @Data
 @NoArgsConstructor
-public class Customer {
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private long customerId;
+@AllArgsConstructor
+public class Customer extends User{
 	@NotBlank(message="Name Can't be blank")
 	private String name;
+	@Email(message="invalid email")
 	private String email;
+	@NotBlank(message="No contact no provided")
 	private String contactNo;
 	private LocalDate dob;
 	private String address;
-	@OneToOne(cascade=CascadeType.ALL)
-	private User user;
+	
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@ManyToMany(cascade=CascadeType.ALL)
 	private Set<Account> accountlist;
 	
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@OneToMany(cascade=CascadeType.ALL)
 	private List<Statement> statement;
 	
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@OneToMany(cascade=CascadeType.ALL)
 	private List<CreditCard> creditcard;
 	
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@OneToMany(cascade=CascadeType.ALL)
 	private List<Payment> payment;
 	
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@OneToMany(cascade=CascadeType.ALL)
 	private List<Transaction> transaction;
 
