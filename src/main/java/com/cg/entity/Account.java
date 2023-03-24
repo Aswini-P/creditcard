@@ -35,5 +35,12 @@ public class Account {
 	@OneToMany(cascade=CascadeType.ALL,mappedBy="account")
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private List<Payment> paymentList;
+	
+	public Account(long accountId, String accountName, double balance,String accountType) {
+		this.accountId=accountId;
+		this.accountName=accountName;
+		this.balance=balance;
+		this.accountType=accountType;
+	}
 
 }

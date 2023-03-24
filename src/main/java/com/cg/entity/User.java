@@ -26,10 +26,13 @@ public class User {
 	@NotBlank(message="Password can't be blank")
     private String password;
 	private boolean status;
-	public User(String userId, String password) {
+	public User(int id, String userId, String password,boolean status) {
+		this.Id=id;
 		this.userId=userId;
 		this.password=password;
+		this.status=status;
 	}
+	
 	
 
 }

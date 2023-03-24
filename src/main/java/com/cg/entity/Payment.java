@@ -28,5 +28,12 @@ public class Payment {
 	@ManyToOne
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private Statement statement;
+	public Payment(long paymentId, @NotBlank(message = "Mention the payment method") String method, double amountDue) {
+		super();
+		this.paymentId = paymentId;
+		this.method = method;
+		this.amountDue = amountDue;
+	}
+	
 
 }

@@ -37,4 +37,16 @@ public class CreditCard{
 	private Customer customer;@OneToMany(cascade=CascadeType.ALL,mappedBy="creditCard")
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private List<Statement> statementList;
+	public CreditCard(long id, @NotBlank(message = "No card name provided") String cardName, String cardType,
+			@NotBlank(message = "No card number name provided") String cardNumber, LocalDate expirtyDate,
+			String bankName) {
+		super();
+		this.id = id;
+		this.cardName = cardName;
+		this.cardType = cardType;
+		this.cardNumber = cardNumber;
+		this.expirtyDate = expirtyDate;
+		this.bankName = bankName;
+	}
+	
 }

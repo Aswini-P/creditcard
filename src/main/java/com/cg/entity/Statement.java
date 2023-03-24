@@ -21,6 +21,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class Statement {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long statementId;
@@ -38,5 +39,15 @@ public class Statement {
     @ManyToOne
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private CreditCard creditCard;
+    
+    public Statement(long statementId,
+			@Min(value = 1000, message = "Dueamount should be greater than 1000") double dueAmount,
+			LocalDate billingDate, LocalDate dueDate) {
+		super();
+		this.statementId = statementId;
+		this.dueAmount = dueAmount;
+		this.billingDate = billingDate;
+		this.dueDate = dueDate;
+	}
 
 }

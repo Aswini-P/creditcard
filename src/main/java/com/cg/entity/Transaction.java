@@ -34,5 +34,17 @@ public class Transaction {
 	@ManyToOne
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private Customer customer;
+	public Transaction(long transId, @NotBlank(message = "cardNumber can't be blank") String cardNumber,
+			LocalDate tranDate, String status, double amount, String paymentMethod, String description) {
+		super();
+		this.transId = transId;
+		this.cardNumber = cardNumber;
+		this.tranDate = tranDate;
+		this.status = status;
+		this.amount = amount;
+		this.paymentMethod = paymentMethod;
+		this.description = description;
+	}
+	
 
 }
